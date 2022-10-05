@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 
 # getting the name of the directory
 # where the this file is present.
@@ -30,6 +31,7 @@ async def maintain_scoreboard(r, client):
 
     game_links = get_ongoing_game_links()
     for link in game_links:
+        time.sleep(5)
         link = link[0]
         game_id = get_ongoing_game_id(link)
 

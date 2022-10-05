@@ -26,12 +26,11 @@ from scorebug.scorebug_drawer import *
 from stats.win_probability import *
 
 
-async def add_games_from_wiki(r, client, subreddit_name):
+async def add_games_from_wiki(r, subreddit_name):
     """
     Add the ongoing games from the wiki that haven't been added yet, RefBot populates this page
 
     :param r:
-    :param client:
     :param subreddit_name:
     :return:
     """
@@ -78,12 +77,6 @@ async def add_games_from_wiki(r, client, subreddit_name):
                                               game_info['away_score'],
                                               game_info['team_with_possession'], game_info['home_record'],
                                               game_info['away_record'])
-                    else:
-                        comment_id = get_discord_comment_id(game_id)
-                        if comment_id is not None:
-                            scoreboard_channel = get_channel(client, "fcs-scoreboard")
-                            comment = await scoreboard_channel.fetch_message(comment_id)
-                            comment.delete()
 
                     insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
     if fcs_games is not None:
@@ -114,12 +107,6 @@ async def add_games_from_wiki(r, client, subreddit_name):
                                               game_info['away_score'],
                                               game_info['team_with_possession'], game_info['home_record'],
                                               game_info['away_record'])
-                    else:
-                        comment_id = get_discord_comment_id(game_id)
-                        if comment_id is not None:
-                            scoreboard_channel = get_channel(client, "fcs-scoreboard")
-                            comment = await scoreboard_channel.fetch_message(comment_id)
-                            comment.delete()
 
                     insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
 
@@ -221,10 +208,18 @@ def iterate_through_plays(game_id, submission, subdivision):
     # If the number of plays is the same as the number of plays in the database, you already added everything to add
     if len(plays) == num_plays_added:
         return
+    else:
+        play_number = num_plays_added + 1
 
-    play_number = 1
+    for play_num in range(play_number, len(plays)):
+        play = plays[play_num]
+        print(play)
 
-    for play in plays:
+        first_play_possession = plays[1].split("|")[5]
+        if first_play_possession == "home":
+            had_first_possession = 0
+        elif first_play_possession == "away":
+            had_first_possession = 1
 
         if "----" not in play and play != "-":
             play_information = play.split("|")
@@ -262,11 +257,6 @@ def iterate_through_plays(game_id, submission, subdivision):
             runoff_time = play_information[17]
             if runoff_time == "":
                 runoff_time = "0"
-
-            if play_number == 1 and possession == "home":
-                had_first_possession = 0
-            elif play_number == 1 and possession == "away":
-                had_first_possession = 1
 
             win_probability = str(get_current_win_probability(possession, home_team, away_team, home_score, away_score,
                                                               game_quarter, clock, ball_location, down, yards_to_go,

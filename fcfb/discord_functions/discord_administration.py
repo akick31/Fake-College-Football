@@ -3,6 +3,9 @@ import json
 import discord
 import sys
 import os
+import functools
+import typing
+import asyncio
 
 # getting the name of the directory
 # where the this file is present.
@@ -43,9 +46,7 @@ def cyclone_bot(r):
         # TODO when the command is called to look at a game, grab the game
 
     @tasks.loop()
-    async def maintain_fcfb_data():
-        await add_games_from_wiki(r, client, "FakeCollegeFootball")
-        await maintain_game_information(r)
+    async def maintain_fcfb_scoreboard():
         await maintain_scoreboard(r, client)
 
     @client.event
@@ -56,7 +57,7 @@ def cyclone_bot(r):
         print(client.user.id)
         print('------')
 
-        maintain_fcfb_data.start()
+        maintain_fcfb_scoreboard.start()
         print('------')
         print('Started maintaining FCFB data')
         print('------')
