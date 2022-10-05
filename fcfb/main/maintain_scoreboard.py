@@ -35,7 +35,7 @@ async def maintain_scoreboard(r, client):
         game_id = get_ongoing_game_id(link)
 
         if game_id is not None:
-            time.sleep(10)
+            time.sleep(2)
             discord_comment_id = get_discord_comment_id(game_id)
             subdivision = get_ongoing_game_subdivision(game_id)
             is_done = check_game_done(game_id)
