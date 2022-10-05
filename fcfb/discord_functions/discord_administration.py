@@ -3,6 +3,7 @@ import json
 import discord
 import sys
 import os
+import time
 import functools
 import typing
 import asyncio
@@ -48,6 +49,7 @@ def cyclone_bot(r):
     @tasks.loop()
     async def maintain_fcfb_scoreboard():
         await maintain_scoreboard(r, client)
+        time.sleep(10)
 
     @client.event
     async def on_ready():
