@@ -40,16 +40,16 @@ def update_ongoing_games(game_id, game_info):
                         + "possession = '" + game_info['possession'] + "', "
                         + "quarter = " + game_info['quarter'] + ", "
                         + "clock = '" + game_info['clock'] + "', "
-                        + "ball_location = " + game_info['ball_location'] + ", "
-                        + "down = " + game_info['down'] + " WHERE (game_id) IN (('" + game_id + "'))")
+                        + "ball_location = '" + game_info['ball_location'] + "', "
+                        + "down = '" + game_info['down'] + "' WHERE (game_id) IN (('" + game_id + "'))")
         database.commit()
         cursor.close()
         database.close()
-        log_message("database", "info", "Successfully inserted game info for " + game_id + " into the ongoing games database")
+        log_message("database", "info", "Successfully updated game info for " + game_id + " into the ongoing games database")
         log_message("database", "info", "Database disconnected")
         return True
     except Exception as e:
-        log_message("database", "error", "There was an issue inserting the game info for " + game_id + " into the ongoing games database. " + repr(e))
+        log_message("database", "error", "There was an issue updated the game info for " + game_id + " into the ongoing games database. " + repr(e))
         log_message("database", "info", "Database disconnected")
         return False
 
