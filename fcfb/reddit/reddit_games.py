@@ -37,84 +37,91 @@ async def add_games_from_wiki(r, client, subreddit_name):
     """
 
     games_wiki = r.subreddit(subreddit_name).wiki['games']
+    fbs_games = None
+    fcs_games = None
 
-    if "FCS" not in games_wiki.content_md:
+    if "FCS" not in games_wiki.content_md and "FBS" not in games_wiki.content_md:
         return
-    fbs_games = games_wiki.content_md.split("FCS")[0].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
-    fcs_games = games_wiki.content_md.split("FCS")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+    elif "FCS" in games_wiki.content_md and "FBS" in games_wiki.content_md:
+        fbs_games = games_wiki.content_md.split("FCS")[0].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+        fcs_games = games_wiki.content_md.split("FCS")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+    elif "FCS" not in games_wiki.content_md and "FBS" in games_wiki.content_md:
+        fbs_games = games_wiki.content_md.split("FBS")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+
     season = get_current_season()
 
-    for game in fbs_games:
-        if "link" in game:
-            game_link = game.split(")|[rerun]")[0].split("[link](")[1]
-            game_link_id = game_link.split("/comments")[1]
+    if fbs_games is not None:
+        for game in fbs_games:
+            if "link" in game:
+                game_link = game.split(")|[rerun]")[0].split("[link](")[1]
+                game_link_id = game_link.split("/comments")[1]
 
-            submission = r.submission(game_link_id)
-            submission_body = submission.selftext
+                submission = r.submission(game_link_id)
+                submission_body = submission.selftext
 
-            game_thread_timestamp = datetime.fromtimestamp(submission.created)
+                game_thread_timestamp = datetime.fromtimestamp(submission.created)
 
-            game_id = parse_game_id(submission_body)
+                game_id = parse_game_id(submission_body)
 
-            # If the game doesn't exist, parse the info add it to the database
-            if not check_if_game_exists(game_id):
-                game_info = get_game_info(game_id, submission, "FBS")
+                # If the game doesn't exist, parse the info add it to the database
+                if not check_if_game_exists(game_id):
+                    game_info = get_game_info(game_id, submission, "FBS")
 
-                is_final = 1
-                if "Game complete" not in submission_body:
-                    is_final = 0
-                    insert_into_ongoing_games(game_id, game_link, game_info)
-                    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
-                                          game_info['down_and_distance'],
-                                          game_info['possession'],
-                                          game_info['home_team'], game_info['away_team'], game_info['home_score'],
-                                          game_info['away_score'],
-                                          game_info['team_with_possession'], game_info['home_record'],
-                                          game_info['away_record'])
-                else:
-                    comment_id = get_discord_comment_id(game_id)
-                    if comment_id is not None:
-                        scoreboard_channel = get_channel(client, "fcs-scoreboard")
-                        comment = await scoreboard_channel.fetch_message(comment_id)
-                        comment.delete()
+                    is_final = 1
+                    if "Game complete" not in submission_body:
+                        is_final = 0
+                        insert_into_ongoing_games(game_id, game_link, game_info)
+                        draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
+                                              game_info['down_and_distance'],
+                                              game_info['possession'],
+                                              game_info['home_team'], game_info['away_team'], game_info['home_score'],
+                                              game_info['away_score'],
+                                              game_info['team_with_possession'], game_info['home_record'],
+                                              game_info['away_record'])
+                    else:
+                        comment_id = get_discord_comment_id(game_id)
+                        if comment_id is not None:
+                            scoreboard_channel = get_channel(client, "fcs-scoreboard")
+                            comment = await scoreboard_channel.fetch_message(comment_id)
+                            comment.delete()
 
-                insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
+                    insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
+    if fcs_games is not None:
+        for game in fcs_games:
+            if "link" in game:
+                game_link = game.split(")|[rerun]")[0].split("[link](")[1]
+                game_link_id = game_link.split("/comments")[1]
 
-    for game in fcs_games:
-        if "link" in game:
-            game_link = game.split(")|[rerun]")[0].split("[link](")[1]
-            game_link_id = game_link.split("/comments")[1]
+                submission = r.submission(game_link_id)
+                submission_body = submission.selftext
 
-            submission = r.submission(game_link_id)
-            submission_body = submission.selftext
+                game_thread_timestamp = datetime.fromtimestamp(submission.created)
 
-            game_thread_timestamp = datetime.fromtimestamp(submission.created)
+                game_id = parse_game_id(submission_body)
 
-            game_id = parse_game_id(submission_body)
+                # If the game doesn't exist, parse the info add it to the database
+                if not check_if_game_exists(game_id):
+                    game_info = get_game_info(game_id, submission, "FCS")
 
-            # If the game doesn't exist, parse the info add it to the database
-            if not check_if_game_exists(game_id):
-                game_info = get_game_info(game_id, submission, "FCS")
+                    is_final = 1
+                    if "Game complete" not in submission_body:
+                        is_final = 0
+                        insert_into_ongoing_games(game_id, game_link, game_info)
+                        draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
+                                              game_info['down_and_distance'],
+                                              game_info['possession'],
+                                              game_info['home_team'], game_info['away_team'], game_info['home_score'],
+                                              game_info['away_score'],
+                                              game_info['team_with_possession'], game_info['home_record'],
+                                              game_info['away_record'])
+                    else:
+                        comment_id = get_discord_comment_id(game_id)
+                        if comment_id is not None:
+                            scoreboard_channel = get_channel(client, "fcs-scoreboard")
+                            comment = await scoreboard_channel.fetch_message(comment_id)
+                            comment.delete()
 
-                is_final = 1
-                if "Game complete" not in submission_body:
-                    is_final = 0
-                    insert_into_ongoing_games(game_id, game_link, game_info)
-                    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
-                                          game_info['down_and_distance'],
-                                          game_info['possession'],
-                                          game_info['home_team'], game_info['away_team'], game_info['home_score'],
-                                          game_info['away_score'],
-                                          game_info['team_with_possession'], game_info['home_record'],
-                                          game_info['away_record'])
-                else:
-                    comment_id = get_discord_comment_id(game_id)
-                    if comment_id is not None:
-                        scoreboard_channel = get_channel(client, "fcs-scoreboard")
-                        comment = await scoreboard_channel.fetch_message(comment_id)
-                        comment.delete()
-
-                insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
+                    insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
 
 
 def parse_game_id(submission_body):
