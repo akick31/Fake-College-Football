@@ -43,7 +43,7 @@ def get_elo(team):
         log_message("database", "info", "Database disconnected")
         return team_elo
     except Exception as e:
-        log_message("database", "error", "There was an error retrieving ELO for" + team + ". " + repr(e))
+        log_message("database", "error", "There was an error retrieving ELO for " + team + ". " + repr(e))
         log_message("database", "info", "Database disconnected")
         return None
 
