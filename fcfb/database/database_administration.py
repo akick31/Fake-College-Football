@@ -17,6 +17,21 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 
 from logs.logs import *
+from main.maintain_game_information import maintain_game_information
+from reddit.reddit_games import add_games_from_wiki
+
+
+async def database_bot(r):
+    """
+    Run the database maintainer portion of Cyclone Bot
+
+    :param r:
+    :return:
+    """
+
+    while True:
+        await add_games_from_wiki(r, "FakeCollegeFootball")
+        await maintain_game_information(r)
 
 
 def connect_to_database():
