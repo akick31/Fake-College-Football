@@ -22,7 +22,7 @@ def get_vegas_odds(home_team, away_team):
     :return:
     """
 
-    from fcfb.database.retrieve_from_database import get_elo
+    from database.retrieve_from_database import get_elo
     home_elo = get_elo(home_team)
     away_elo = get_elo(away_team)
     if home_elo is None or away_elo is None:

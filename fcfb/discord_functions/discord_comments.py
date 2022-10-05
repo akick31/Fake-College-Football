@@ -49,7 +49,7 @@ async def add_game_to_scoreboard(r, client, game_id, game_link, subdivision):
         else:
             odds_text = game_info['home_team'] + " " + str(odds)
 
-    from fcfb.database.retrieve_from_database import get_win_probability
+    from database.retrieve_from_database import get_win_probability
     win_probability = get_win_probability(game_id)
 
     if win_probability is None or int(win_probability) == 50:
@@ -65,7 +65,7 @@ async def add_game_to_scoreboard(r, client, game_id, game_link, subdivision):
     embed.add_field(name="**Win Probability**", value=win_text, inline=False)
 
     main_dir = os.path.dirname(os.path.dirname(os.getcwd()))
-    from fcfb.database.retrieve_from_database import get_scorebug
+    from database.retrieve_from_database import get_scorebug
     scorebug = get_scorebug(game_id)
 
     with open(main_dir + scorebug, 'rb') as fp:
@@ -112,7 +112,7 @@ async def edit_scoreboard(r, client, game_id, game_link, subdivision):
         else:
             odds_text = game_info['home_team'] + " " + str(odds)
 
-    from fcfb.database.retrieve_from_database import get_win_probability
+    from database.retrieve_from_database import get_win_probability
     win_probability = get_win_probability(game_id)
 
     if win_probability is None or int(win_probability) == 50:
@@ -128,7 +128,7 @@ async def edit_scoreboard(r, client, game_id, game_link, subdivision):
     embed.add_field(name="**Win Probability**", value=win_text, inline=False)
 
     main_dir = os.path.dirname(os.path.dirname(os.getcwd()))
-    from fcfb.database.retrieve_from_database import get_scorebug
+    from database.retrieve_from_database import get_scorebug
     scorebug = get_scorebug(game_id)
 
     with open(main_dir + scorebug, 'rb') as fp:
@@ -137,7 +137,7 @@ async def edit_scoreboard(r, client, game_id, game_link, subdivision):
 
     embed.add_field(name="**Ball Location**", value=game_info['ball_location'], inline=False)
 
-    from fcfb.database.retrieve_from_database import get_discord_comment_id
+    from database.retrieve_from_database import get_discord_comment_id
     comment_id = get_discord_comment_id(game_id)
     if subdivision == "FBS":
         scoreboard_channel = get_channel(client, "fbs-scoreboard")

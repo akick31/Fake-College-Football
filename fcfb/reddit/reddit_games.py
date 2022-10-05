@@ -213,6 +213,8 @@ def iterate_through_plays(game_id, submission, subdivision):
     plays = gist_data.split("\n")
     if "--" in plays:
         plays.remove("--")
+    if "-" in plays:
+        plays.remove("-")
 
     num_plays_added = check_number_of_plays(game_id)
 
@@ -223,7 +225,8 @@ def iterate_through_plays(game_id, submission, subdivision):
     play_number = 1
 
     for play in plays:
-        if "----" not in play:
+
+        if "----" not in play and play != "-":
             play_information = play.split("|")
             home_score = play_information[0]
             away_score = play_information[1]

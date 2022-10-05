@@ -33,23 +33,24 @@ async def maintain_scoreboard(r, client):
         link = link[0]
         game_id = get_ongoing_game_id(link)
 
-        discord_comment_id = get_discord_comment_id(game_id)
-        subdivision = get_ongoing_game_subdivision(game_id)
-        is_done = check_game_done(game_id)
+        if game_id is not None:
+            discord_comment_id = get_discord_comment_id(game_id)
+            subdivision = get_ongoing_game_subdivision(game_id)
+            is_done = check_game_done(game_id)
 
-        if discord_comment_id is not None:
-            link_id = link.split("/comments")[1]
-            submission = r.submission(link_id)
+            if discord_comment_id is not None:
+                link_id = link.split("/comments")[1]
+                submission = r.submission(link_id)
 
-            # If game is done, mark it as done and delete from scoreboard
-            if "Game complete" in submission.selftext:
-                await handle_game_over(client, game_id, submission, subdivision)
-            else:
-                update_game_via_game_thread(game_id, submission, subdivision)
-                await edit_scoreboard(r, client, game_id, link, subdivision)
-        elif is_done == 0 and discord_comment_id is None:
-            discord_comment_id = await add_game_to_scoreboard(r, client, game_id, link, subdivision)
-            update_discord_comment_id_into_ongoing_games(game_id, discord_comment_id)
+                # If game is done, mark it as done and delete from scoreboard
+                if "Game complete" in submission.selftext:
+                    await handle_game_over(client, game_id, submission, subdivision)
+                else:
+                    update_game_via_game_thread(game_id, submission, subdivision)
+                    await edit_scoreboard(r, client, game_id, link, subdivision)
+            elif is_done == 0 and discord_comment_id is None:
+                discord_comment_id = await add_game_to_scoreboard(r, client, game_id, link, subdivision)
+                update_discord_comment_id_into_ongoing_games(game_id, discord_comment_id)
 
 
 async def handle_game_over(client, game_id, submission, subdivision):
