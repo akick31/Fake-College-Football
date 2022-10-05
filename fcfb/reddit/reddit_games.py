@@ -229,9 +229,9 @@ def iterate_through_plays(game_id, submission, subdivision):
         if "----" not in play and play != "-":
             play_information = play.split("|")
             home_score = play_information[0]
-            home_score = abs(int(home_score))
+            home_score = str(abs(int(home_score)))
             away_score = play_information[1]
-            away_score = abs(int(away_score))
+            away_score = str(abs(int(away_score)))
             game_quarter = play_information[2]
             clock = play_information[3]
             ball_location = play_information[4]
