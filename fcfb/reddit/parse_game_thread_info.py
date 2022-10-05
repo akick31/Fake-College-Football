@@ -203,6 +203,10 @@ def parse_possession(submission_body):
     """
 
     possession = submission_body.split("___")[4].split("\n")[4].split("|")[4].split("]")[0].split("[")[-1]
+
+    if "&amp;" in possession:
+        possession = possession.replace("&amp;", "&")
+
     return possession
 
 
