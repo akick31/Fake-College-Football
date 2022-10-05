@@ -20,7 +20,7 @@ from database.check_database import *
 from database.insert_into_database import *
 from database.remove_from_database import *
 from database.update_database import *
-from discord.discord_utils import *
+from discord_functions.discord_utils import *
 from reddit.parse_game_thread_info import *
 from scorebug.scorebug_drawer import *
 from stats.win_probability import *
@@ -64,11 +64,13 @@ async def add_games_from_wiki(r, client, subreddit_name):
                 if "Game complete" not in submission_body:
                     is_final = 0
                     insert_into_ongoing_games(game_id, game_link, game_info)
-                    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'], game_info['down_and_distance'],
+                    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
+                                          game_info['down_and_distance'],
                                           game_info['possession'],
                                           game_info['home_team'], game_info['away_team'], game_info['home_score'],
                                           game_info['away_score'],
-                                          game_info['team_with_possession'], game_info['home_record'], game_info['away_record'])
+                                          game_info['team_with_possession'], game_info['home_record'],
+                                          game_info['away_record'])
                 else:
                     comment_id = get_discord_comment_id(game_id)
                     if comment_id is not None:
@@ -98,11 +100,13 @@ async def add_games_from_wiki(r, client, subreddit_name):
                 if "Game complete" not in submission_body:
                     is_final = 0
                     insert_into_ongoing_games(game_id, game_link, game_info)
-                    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'], game_info['down_and_distance'],
+                    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
+                                          game_info['down_and_distance'],
                                           game_info['possession'],
                                           game_info['home_team'], game_info['away_team'], game_info['home_score'],
                                           game_info['away_score'],
-                                          game_info['team_with_possession'], game_info['home_record'], game_info['away_record'])
+                                          game_info['team_with_possession'], game_info['home_record'],
+                                          game_info['away_record'])
                 else:
                     comment_id = get_discord_comment_id(game_id)
                     if comment_id is not None:
@@ -141,8 +145,10 @@ def update_game_via_game_thread(game_id, submission, subdivision):
 
     game_info = get_game_info(game_id, submission, subdivision)
 
-    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'], game_info['down_and_distance'], game_info['possession'],
-                          game_info['home_team'], game_info['away_team'], game_info['home_score'], game_info['away_score'],
+    draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'], game_info['down_and_distance'],
+                          game_info['possession'],
+                          game_info['home_team'], game_info['away_team'], game_info['home_score'],
+                          game_info['away_score'],
                           game_info['team_with_possession'], game_info['home_record'], game_info['away_record'])
 
     update_ongoing_games(game_id, game_info)
@@ -249,8 +255,8 @@ def iterate_through_plays(game_id, submission, subdivision):
                 had_first_possession = 1
 
             win_probability = str(get_current_win_probability(possession, home_team, away_team, home_score, away_score,
-                                                                game_quarter, clock, ball_location, down, yards_to_go,
-                                                                actual_result, had_first_possession))
+                                                              game_quarter, clock, ball_location, down, yards_to_go,
+                                                              actual_result, had_first_possession))
 
             if play_number > num_plays_added:
                 insert_play(game_id, home_team, away_team, play_number, home_score, away_score, game_quarter, clock,

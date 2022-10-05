@@ -14,7 +14,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from discord.discord_utils import *
+from discord_functions.discord_utils import *
 from logs.logs import *
 from reddit.parse_game_thread_info import *
 from utils.utils import *

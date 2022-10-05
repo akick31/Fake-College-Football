@@ -21,7 +21,7 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 
 from reddit.reddit_administration import *
-from discord.discord_administration import *
+from discord_functions.discord_administration import *
 
 if __name__ == '__main__':
     r = login_reddit()

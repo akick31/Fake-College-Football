@@ -13,7 +13,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from discord.discord_comments import *
+from discord_functions.discord_comments import *
 from reddit.reddit_games import *
 from scorebug.scorebug_drawer import *
 from database.update_database import *
