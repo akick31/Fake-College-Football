@@ -67,7 +67,7 @@ async def add_games_from_wiki(r, subreddit_name):
                     game_info = get_game_info(game_id, submission, "FBS")
 
                     is_final = 1
-                    if "Game complete" not in submission_body:
+                    if "Game complete" not in submission_body or "Unable to generate play list" in submission_body:
                         is_final = 0
                         insert_into_ongoing_games(game_id, game_link, game_info)
                         draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
@@ -97,7 +97,7 @@ async def add_games_from_wiki(r, subreddit_name):
                     game_info = get_game_info(game_id, submission, "FCS")
 
                     is_final = 1
-                    if "Game complete" not in submission_body:
+                    if "Game complete" not in submission_body or "Unable to generate play list" in submission_body:
                         is_final = 0
                         insert_into_ongoing_games(game_id, game_link, game_info)
                         draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
