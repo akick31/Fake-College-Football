@@ -1,5 +1,5 @@
 # FCFB
-A bot that runs and maintains various FCFB functions, such as the scoreboard, elo, and more
+A repository of all the bots that run and maintains various FCFB functions, such as the scoreboard, elo, and more
 
 ___
 ## Features
