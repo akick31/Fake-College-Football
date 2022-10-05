@@ -1,3 +1,5 @@
+import asyncio
+import inspect
 import sys
 import os
 
@@ -18,5 +20,9 @@ from main.maintain_database import database_bot
 
 if __name__ == '__main__':
     r = login_reddit()
-    database_bot(r)
+
+    if inspect.iscoroutinefunction(database_bot):
+        task = database_bot(r)
+        res = asyncio.get_event_loop().run_until_complete(task)
+
 

@@ -31,7 +31,7 @@ async def maintain_scoreboard(r, client):
 
     game_links = get_ongoing_game_links()
     for link in game_links:
-        time.sleep(5)
+        time.sleep(10)
         link = link[0]
         game_id = get_ongoing_game_id(link)
 
