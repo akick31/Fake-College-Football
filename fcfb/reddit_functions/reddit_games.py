@@ -18,10 +18,8 @@ import requests
 
 from database.check_database import *
 from database.insert_into_database import *
-from database.remove_from_database import *
 from database.update_database import *
-from discord_functions.discord_utils import *
-from reddit.parse_game_thread_info import *
+from reddit_functions.parse_game_thread_info import *
 from scorebug.scorebug_drawer import *
 from stats.win_probability import *
 

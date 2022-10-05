@@ -1,6 +1,5 @@
 import sys
 import os
-import time
 
 # getting the name of the directory
 # where the this file is present.
@@ -15,7 +14,7 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 
 from discord_functions.discord_comments import *
-from reddit.reddit_games import *
+from reddit_functions.reddit_games import *
 from scorebug.scorebug_drawer import *
 from database.update_database import *
 

@@ -1,12 +1,5 @@
-import datetime
-import json
-import discord
 import sys
 import os
-import time
-import functools
-import typing
-import asyncio
 
 # getting the name of the directory
 # where the this file is present.
@@ -22,9 +15,8 @@ sys.path.append(parent)
 
 from discord.ext import tasks
 
-from main.maintain_game_information import *
-from main.maintain_scoreboard import *
-from reddit.reddit_games import *
+from maintain_functions.maintain_scoreboard import *
+from reddit_functions.reddit_games import *
 
 
 def cyclone_bot(r):

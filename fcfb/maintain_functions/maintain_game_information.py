@@ -15,7 +15,7 @@ sys.path.append(parent)
 
 from database.retrieve_from_database import *
 from database.update_database import *
-from reddit.reddit_games import iterate_through_plays
+from reddit_functions.reddit_games import iterate_through_plays
 
 
 async def maintain_game_information(r):

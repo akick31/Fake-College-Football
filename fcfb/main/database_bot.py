@@ -15,7 +15,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from reddit.reddit_administration import login_reddit
+from reddit_functions.reddit_administration import login_reddit
 from database.database_administration import database_bot
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from reddit.reddit_administration import *
+from reddit_functions.reddit_administration import *
 from discord_functions.discord_administration import *
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ sys.path.append(parent)
 
 from discord_functions.discord_utils import *
 from logs.logs import *
-from reddit.parse_game_thread_info import *
+from reddit_functions.parse_game_thread_info import *
 from utils.utils import *
 
 
