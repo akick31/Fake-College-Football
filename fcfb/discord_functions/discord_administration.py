@@ -59,7 +59,7 @@ def cyclone_bot(r):
 
         maintain_fcfb_scoreboard.start()
         print('------')
-        print('Started maintaining FCFB data')
+        print('Started the FCFB scoreboard')
         print('------')
 
     client.run(token)
