@@ -64,7 +64,7 @@ async def add_games_from_wiki(r, client, subreddit_name):
                 game_id = parse_game_id(submission_body)
 
                 # If the game doesn't exist, parse the info add it to the database
-                if not check_if_game_exists(game_id):
+                if game_id is not None and not check_if_game_exists(game_id):
                     game_info = get_game_info(game_id, submission, "FBS")
 
                     is_final = 1
@@ -100,7 +100,7 @@ async def add_games_from_wiki(r, client, subreddit_name):
                 game_id = parse_game_id(submission_body)
 
                 # If the game doesn't exist, parse the info add it to the database
-                if not check_if_game_exists(game_id):
+                if game_id is not None and not check_if_game_exists(game_id):
                     game_info = get_game_info(game_id, submission, "FCS")
 
                     is_final = 1
@@ -132,6 +132,8 @@ def parse_game_id(submission_body):
     :return:
     """
 
+    if "Unable to generate play list" in submission_body:
+        return None
     if "Waiting on" in submission_body:
         game_id = submission_body.split("Waiting on")[0].split("[Plays](")[1].split(")")[0].split("Watchful1/")[1]
         return game_id
