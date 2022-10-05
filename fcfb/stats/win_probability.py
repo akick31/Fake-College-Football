@@ -112,9 +112,9 @@ def get_current_win_probability(possession, home_team, away_team, home_score, aw
     away_elo = get_elo(away_team)
 
     if home_elo is None:
-        home_elo = 500
+        home_elo = 1500
     elif away_elo is None:
-        away_elo = 500
+        away_elo = 1500
 
     # get elo
     if possession == "home":
