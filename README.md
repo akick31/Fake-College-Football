@@ -1,4 +1,4 @@
-# FCFB-Cyclone-Bot
+# FCFB
 A bot that runs and maintains various FCFB functions, such as the scoreboard, elo, and more
 
 ___
