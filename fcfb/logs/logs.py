@@ -1,6 +1,6 @@
 import logging
+import sys
 import os
-from fcfb.discord.discord_comments import post_comment
 
 
 def create_logger(name):

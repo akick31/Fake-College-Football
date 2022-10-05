@@ -1,12 +1,26 @@
 import datetime
 import json
 import discord
+import sys
 import os
+
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+
+# adding the parent directory to
+# the sys.path.
+sys.path.append(parent)
+
 from discord.ext import tasks
 
-from fcfb.main.maintain_game_information import *
-from fcfb.main.maintain_scoreboard import *
-from fcfb.reddit.reddit_games import *
+from main.maintain_game_information import *
+from main.maintain_scoreboard import *
+from reddit.reddit_games import *
 
 
 def cyclone_bot(r):

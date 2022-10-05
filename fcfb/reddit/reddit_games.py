@@ -1,15 +1,29 @@
-from datetime import datetime
+import sys
+import os
 
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+
+# adding the parent directory to
+# the sys.path.
+sys.path.append(parent)
+
+from datetime import datetime
 import requests
 
-from fcfb.database.check_database import *
-from fcfb.database.insert_into_database import *
-from fcfb.database.remove_from_database import *
-from fcfb.database.update_database import *
-from fcfb.discord.discord_utils import *
-from fcfb.reddit.parse_game_thread_info import *
-from fcfb.scorebug.scorebug_drawer import *
-from fcfb.statistics.win_probability import *
+from database.check_database import *
+from database.insert_into_database import *
+from database.remove_from_database import *
+from database.update_database import *
+from discord.discord_utils import *
+from reddit.parse_game_thread_info import *
+from scorebug.scorebug_drawer import *
+from stats.win_probability import *
 
 
 async def add_games_from_wiki(r, client, subreddit_name):
@@ -23,6 +37,9 @@ async def add_games_from_wiki(r, client, subreddit_name):
     """
 
     games_wiki = r.subreddit(subreddit_name).wiki['games']
+
+    if "FCS" not in games_wiki.content_md:
+        return
     fbs_games = games_wiki.content_md.split("FCS")[0].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
     fcs_games = games_wiki.content_md.split("FCS")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
     season = get_current_season()

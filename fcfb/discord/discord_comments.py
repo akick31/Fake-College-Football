@@ -1,9 +1,23 @@
 import discord
+import sys
+import os
 
-from fcfb.discord.discord_utils import *
-from fcfb.logs.logs import *
-from fcfb.reddit.parse_game_thread_info import *
-from fcfb.utils.utils import *
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+
+# adding the parent directory to
+# the sys.path.
+sys.path.append(parent)
+
+from discord.discord_utils import *
+from logs.logs import *
+from reddit.parse_game_thread_info import *
+from utils.utils import *
 
 
 async def add_game_to_scoreboard(r, client, game_id, game_link, subdivision):

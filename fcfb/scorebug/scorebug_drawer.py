@@ -1,10 +1,21 @@
+import sys
 import os
 
-from PIL import Image, ImageDraw, ImageFont
-import sys
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
 
-from fcfb.database.retrieve_from_database import *
-from fcfb.scorebug.scorebug_utils import *
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+
+# adding the parent directory to
+# the sys.path.
+sys.path.append(parent)
+
+from PIL import Image, ImageDraw, ImageFont
+
+from scorebug.scorebug_utils import *
 
 
 def convert_to_rgb(hex):

@@ -1,7 +1,22 @@
-from fcfb.discord.discord_comments import *
-from fcfb.reddit.reddit_games import *
-from fcfb.scorebug.scorebug_drawer import *
-from fcfb.database.update_database import *
+import sys
+import os
+
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+
+# adding the parent directory to
+# the sys.path.
+sys.path.append(parent)
+
+from discord.discord_comments import *
+from reddit.reddit_games import *
+from scorebug.scorebug_drawer import *
+from database.update_database import *
 
 
 async def maintain_scoreboard(r, client):

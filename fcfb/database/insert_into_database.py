@@ -1,6 +1,20 @@
-from fcfb.database.database_administration import *
-from fcfb.logs.logs import *
-from fcfb.reddit.parse_game_thread_info import *
+import sys
+import os
+
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+
+# Getting the parent directory name
+# where the current directory is present.
+parent = os.path.dirname(current)
+
+# adding the parent directory to
+# the sys.path.
+sys.path.append(parent)
+
+from database.database_administration import *
+from logs.logs import *
 
 
 def insert_into_ongoing_games(game_id, game_link, game_info):
