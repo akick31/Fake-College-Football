@@ -41,7 +41,6 @@ def cyclone_bot(r):
     @tasks.loop()
     async def maintain_fcfb_scoreboard():
         await maintain_scoreboard(r, client)
-        time.sleep(10)
 
     @client.event
     async def on_ready():

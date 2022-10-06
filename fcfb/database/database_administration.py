@@ -18,7 +18,6 @@ sys.path.append(parent)
 
 from logs.logs import *
 from maintain_functions.maintain_game_information import maintain_game_information
-from reddit_functions.reddit_games import add_games_from_wiki
 
 
 async def database_bot(r):
@@ -30,6 +29,7 @@ async def database_bot(r):
     """
 
     while True:
+        from reddit_functions.reddit_games import add_games_from_wiki
         await add_games_from_wiki(r, "FakeCollegeFootball")
         await maintain_game_information(r)
 

@@ -15,7 +15,6 @@ sys.path.append(parent)
 
 from database.retrieve_from_database import *
 from database.update_database import *
-from reddit_functions.reddit_games import iterate_through_plays
 
 
 async def maintain_game_information(r):
@@ -37,6 +36,7 @@ async def maintain_game_information(r):
 
             subdivision = get_ongoing_game_subdivision(game_id)
 
+            from reddit_functions.reddit_games import iterate_through_plays
             iterate_through_plays(game_id, submission, subdivision)
 
             # Done iterating through plays, update the win probability for the scorebug
