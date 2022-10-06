@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import mysql
 import mysql.connector
@@ -6,6 +7,13 @@ import os
 
 # getting the name of the directory
 # where the this file is present.
+from database.check_database import check_if_game_exists_in_games
+from database.insert_into_database import insert_into_games
+from reddit_functions.parse_game_thread_info import get_game_info
+from reddit_functions.reddit_games import parse_game_id, insert_into_ongoing_games, \
+    check_if_game_exists_in_ongoing_games
+from scorebug.scorebug_drawer import draw_ongoing_scorebug
+
 current = os.path.dirname(os.path.realpath(__file__))
 
 # Getting the parent directory name
@@ -59,3 +67,37 @@ def connect_to_database():
 
     return database
 
+
+def add_game_to_databases(r, game, season, subdivision):
+    if "link" in game:
+        game_link = game.split(")|[rerun]")[0].split("[link](")[1]
+        game_link_id = game_link.split("/comments")[1]
+
+        submission = r.submission(game_link_id)
+        submission_body = submission.selftext
+
+        game_thread_timestamp = datetime.fromtimestamp(submission.created)
+
+        game_id = parse_game_id(submission_body)
+
+        # If the game doesn't exist, parse the info add it to the database
+        if game_id is not None and not check_if_game_exists_in_games(game_id):
+            game_info = get_game_info(game_id, submission, subdivision)
+
+            is_final = 1
+            if "Game complete" not in submission_body or "Unable to generate play list" in submission_body:
+                is_final = 0
+
+            insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
+
+        if ("Game complete" not in submission_body or "Unable to generate play list" in submission_body)\
+                and game_id is not None and not check_if_game_exists_in_ongoing_games(game_id):
+            game_info = get_game_info(game_id, submission, "FBS")
+            draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
+                                  game_info['down_and_distance'],
+                                  game_info['possession'],
+                                  game_info['home_team'], game_info['away_team'], game_info['home_score'],
+                                  game_info['away_score'],
+                                  game_info['team_with_possession'], game_info['home_record'],
+                                  game_info['away_record'])
+            insert_into_ongoing_games(game_id, game_link, game_info)

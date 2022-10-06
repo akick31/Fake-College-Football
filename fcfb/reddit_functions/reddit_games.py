@@ -23,7 +23,6 @@ from reddit_functions.parse_game_thread_info import *
 from scorebug.scorebug_drawer import *
 from stats.win_probability import *
 
-
 async def add_games_from_wiki(r, subreddit_name):
     """
     Add the ongoing games from the wiki that haven't been added yet, RefBot populates this page
@@ -47,66 +46,13 @@ async def add_games_from_wiki(r, subreddit_name):
 
     season = get_current_season()
 
+    from database.database_administration import add_game_to_databases
     if fbs_games is not None:
         for game in fbs_games:
-            if "link" in game:
-                game_link = game.split(")|[rerun]")[0].split("[link](")[1]
-                game_link_id = game_link.split("/comments")[1]
-
-                submission = r.submission(game_link_id)
-                submission_body = submission.selftext
-
-                game_thread_timestamp = datetime.fromtimestamp(submission.created)
-
-                game_id = parse_game_id(submission_body)
-
-                # If the game doesn't exist, parse the info add it to the database
-                if game_id is not None and not check_if_game_exists(game_id):
-                    game_info = get_game_info(game_id, submission, "FBS")
-
-                    is_final = 1
-                    if "Game complete" not in submission_body or "Unable to generate play list" in submission_body:
-                        is_final = 0
-                        insert_into_ongoing_games(game_id, game_link, game_info)
-                        draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
-                                              game_info['down_and_distance'],
-                                              game_info['possession'],
-                                              game_info['home_team'], game_info['away_team'], game_info['home_score'],
-                                              game_info['away_score'],
-                                              game_info['team_with_possession'], game_info['home_record'],
-                                              game_info['away_record'])
-
-                    insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
+            add_game_to_databases(r, game, season, "FBS")
     if fcs_games is not None:
         for game in fcs_games:
-            if "link" in game:
-                game_link = game.split(")|[rerun]")[0].split("[link](")[1]
-                game_link_id = game_link.split("/comments")[1]
-
-                submission = r.submission(game_link_id)
-                submission_body = submission.selftext
-
-                game_thread_timestamp = datetime.fromtimestamp(submission.created)
-
-                game_id = parse_game_id(submission_body)
-
-                # If the game doesn't exist, parse the info add it to the database
-                if game_id is not None and not check_if_game_exists(game_id):
-                    game_info = get_game_info(game_id, submission, "FCS")
-
-                    is_final = 1
-                    if "Game complete" not in submission_body or "Unable to generate play list" in submission_body:
-                        is_final = 0
-                        insert_into_ongoing_games(game_id, game_link, game_info)
-                        draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
-                                              game_info['down_and_distance'],
-                                              game_info['possession'],
-                                              game_info['home_team'], game_info['away_team'], game_info['home_score'],
-                                              game_info['away_score'],
-                                              game_info['team_with_possession'], game_info['home_record'],
-                                              game_info['away_record'])
-
-                    insert_into_games(game_id, game_link, game_info, season, is_final, game_thread_timestamp)
+            add_game_to_databases(r, game, season, "FCS")
 
 
 def parse_game_id(submission_body):
