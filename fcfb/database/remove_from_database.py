@@ -26,6 +26,7 @@ def remove_game_from_ongoing_games(game_id):
 
     log_message("database", "info", "Trying to remove game " + game_id + " from the ongoing games database")
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("DELETE FROM ongoing_games WHERE (game_id) IN (('" + game_id + "'))")

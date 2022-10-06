@@ -13,7 +13,6 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from database.database_administration import *
 from logs.logs import *
 
 
@@ -29,6 +28,7 @@ def update_ongoing_games(game_id, game_info):
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Updating the game info for " + game_id + " into the ongoing games database")
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -66,6 +66,7 @@ def update_discord_comment_id_into_ongoing_games(game_id, discord_comment_id):
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Updating the discord comment id for " + game_id + " into the ongoing games database")
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -97,6 +98,7 @@ def update_win_probability(game_id, win_probability):
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Updating win probability for " + game_id + " in the ongoing games database.")
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -130,6 +132,7 @@ def mark_game_done(game_id):
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Marking game " + game_id + " as done.")
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None

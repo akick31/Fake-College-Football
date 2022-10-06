@@ -13,7 +13,6 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from database.database_administration import *
 from logs.logs import *
 
 
@@ -28,6 +27,7 @@ def get_elo(team):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the ELO for " + team)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return False
@@ -59,6 +59,7 @@ def get_primary_color(team):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the primary team color for " + team)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -88,7 +89,9 @@ def get_secondary_color(team):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the secondary team color for " + team)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
+
         if database is None:
             return None
 
@@ -118,6 +121,7 @@ def get_ongoing_game_id(game_link):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the game id for the ongoing game with the following url: " + game_link)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -148,6 +152,7 @@ def get_ongoing_game_links():
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the game thread links for ongoing games")
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -178,6 +183,7 @@ def get_ongoing_game_subdivision(game_id):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the subdivision for the ongoing game with the following game id: " + game_id)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -208,6 +214,7 @@ def get_current_season():
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the current season")
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -239,6 +246,7 @@ def get_discord_comment_id(game_id):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the discord comment id for the ongoing game with the following game id: " + game_id)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -270,6 +278,7 @@ def get_win_probability(game_id):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the win probability for the ongoing game with the following game id: " + game_id)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -301,6 +310,7 @@ def get_scorebug(game_id):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the scorebug for the ongoing game with the following game id: " + game_id)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -332,6 +342,7 @@ def get_game_plays_win_probability(game_id):
     log_message("database", "info", "----------------------------")
     log_message("database", "info", "Retrieving the win probability for the ongoing game with the following game id: " + game_id)
     try:
+        from database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
