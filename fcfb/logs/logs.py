@@ -37,19 +37,20 @@ def log_message(log_target, level, log_content):
     Log the requested method
 
     """
+    print(level + "-" + log_target + ": " + log_content)
 
-    if level == "debug":
-        logger = create_logger(log_target)
-        logger.debug(log_content)
-
-    if level == "info":
-        logger = create_logger(log_target)
-        logger.info(log_content)
-
-    if level == "warning":
-        logger = create_logger(log_target)
-        logger.warning(log_content)
-
-    if level == "error":
-        logger = create_logger(log_target)
-        logger.error(log_content)
+    # if level == "debug":
+    #     logger = create_logger(log_target)
+    #     logger.debug(log_content)
+    #
+    # if level == "info":
+    #     logger = create_logger(log_target)
+    #     logger.info(log_content)
+    #
+    # if level == "warning":
+    #     logger = create_logger(log_target)
+    #     logger.warning(log_content)
+    #
+    # if level == "error":
+    #     logger = create_logger(log_target)
+    #     logger.error(log_content)

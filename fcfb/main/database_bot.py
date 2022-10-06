@@ -20,7 +20,6 @@ from database.database_administration import database_bot
 
 if __name__ == '__main__':
     r = login_reddit()
-
     if inspect.iscoroutinefunction(database_bot):
         task = database_bot(r)
         res = asyncio.get_event_loop().run_until_complete(task)

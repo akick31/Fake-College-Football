@@ -1,3 +1,4 @@
+import tracemalloc
 from datetime import datetime
 import json
 import mysql
