@@ -93,7 +93,7 @@ def add_game_to_databases(r, game, season, subdivision):
 
         if ("Game complete" not in submission_body or "Unable to generate play list" in submission_body)\
                 and game_id is not None and not check_if_game_exists_in_ongoing_games(game_id):
-            game_info = get_game_info(game_id, submission, "FBS")
+            game_info = get_game_info(game_id, submission, subdivision)
             draw_ongoing_scorebug(game_id, game_info['quarter'], game_info['clock'],
                                   game_info['down_and_distance'],
                                   game_info['possession'],
