@@ -36,13 +36,13 @@ async def add_games_from_wiki(r, subreddit_name):
     fbs_games = None
     fcs_games = None
 
-    if "FCS" not in games_wiki.content_md and "FBS" not in games_wiki.content_md:
+    if "**FCS**" not in games_wiki.content_md and "**FBS**" not in games_wiki.content_md:
         return
-    elif "FCS" in games_wiki.content_md and "FBS" in games_wiki.content_md:
-        fbs_games = games_wiki.content_md.split("FCS")[0].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
-        fcs_games = games_wiki.content_md.split("FCS")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
-    elif "FCS" not in games_wiki.content_md and "FBS" in games_wiki.content_md:
-        fbs_games = games_wiki.content_md.split("FBS")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+    elif "**FCS**" in games_wiki.content_md and "**FBS**" in games_wiki.content_md:
+        fbs_games = games_wiki.content_md.split("**FCS**")[0].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+        fcs_games = games_wiki.content_md.split("**FCS**")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
+    elif "**FCS**" not in games_wiki.content_md and "**FBS**" in games_wiki.content_md:
+        fbs_games = games_wiki.content_md.split("**FBS**")[1].split(":-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:")[1].split("\n")
 
     season = get_current_season()
 
