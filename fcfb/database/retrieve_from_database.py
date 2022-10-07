@@ -361,3 +361,334 @@ def get_game_plays_win_probability(game_id):
         log_message("database", "error", "There was an error retrieving the win probability for the ongoing game with the following game id: " + game_id + ". " + repr(e))
         log_message("database", "info", "Database disconnected")
         return None
+
+
+def get_team_subdivision(team):
+    """
+    Fetch the team's subdivision
+
+    :return:
+    """
+
+    log_message("database", "info", "----------------------------")
+    log_message("database", "info", "Retrieving the subdivision for the following team: " + team)
+    try:
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT subdivision FROM teams WHERE (name) IN (('" + team + "'))")
+        subdivision = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info", "Retrieved the subdivision for the following team: " + team)
+        log_message("database", "info", "Database disconnected")
+        return subdivision
+    except Exception as e:
+        log_message("database", "error", "There was an error retrieving the subdivision for the following team: " + team + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return None
+
+
+def get_season_start(season):
+    """
+    Fetch the season start date
+
+    :return:
+    """
+
+    log_message("database", "info", "----------------------------")
+    log_message("database", "info", "Retrieving the season start date for season " + str(season))
+    try:
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT season_start FROM seasons WHERE (season) IN ((" + str(season) + "))")
+        subdivision = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info", "Retrieved the season start date for season " + str(season))
+        log_message("database", "info", "Database disconnected")
+        return subdivision
+    except Exception as e:
+        log_message("database", "error", "There was an error retrieving the season start date for season " + str(season) + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return None
+
+
+def get_season_end(season):
+    """
+    Fetch the season end date
+
+    :return:
+    """
+
+    log_message("database", "info", "----------------------------")
+    log_message("database", "info", "Retrieving the season end date for season " + str(season))
+    try:
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT season_end FROM seasons WHERE (season) IN ((" + str(season) + "))")
+        subdivision = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info", "Retrieved the season end date for season " + str(season))
+        log_message("database", "info", "Database disconnected")
+        return subdivision
+    except Exception as e:
+        log_message("database", "error", "There was an error retrieving the season end date for season " + str(season) + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return None
+
+
+def get_postseason_start(season):
+    """
+    Fetch the postseason start date
+
+    :return:
+    """
+
+    log_message("database", "info", "----------------------------")
+    log_message("database", "info", "Retrieving the postseason start date for season " + str(season))
+    try:
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT postseason_start FROM seasons WHERE (season) IN ((" + str(season) + "))")
+        subdivision = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info", "Retrieved the postseason start date for season " + str(season))
+        log_message("database", "info", "Database disconnected")
+        return subdivision
+    except Exception as e:
+        log_message("database", "error", "There was an error retrieving the postseason start date for season " + str(season) + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return None
+
+
+def get_team_wins(team):
+    """
+    Get the team's wins
+
+    :param team:
+    :return:
+    """
+
+    try:
+        log_message("database", "info", "----------------------------")
+        log_message("database", "info", "Getting number of wins for " + team)
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT wins FROM teams WHERE (name) IN (('" + team + "'))")
+        wins = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info",
+                    "Successfully retrieved wins for " + team)
+        log_message("database", "info", "Database disconnected")
+        return wins
+
+    except Exception as e:
+        log_message("database", "error", "There was an issue retrieving wins for " + team + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return False
+
+
+def get_team_losses(team):
+    """
+    Get the team's losses
+
+    :param team:
+    :return:
+    """
+
+    try:
+        log_message("database", "info", "----------------------------")
+        log_message("database", "info", "Getting number of losses for " + team)
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT losses FROM teams WHERE (name) IN (('" + team + "'))")
+        losses = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info",
+                    "Successfully retrieved losses for " + team)
+        log_message("database", "info", "Database disconnected")
+        return losses
+
+    except Exception as e:
+        log_message("database", "error", "There was an issue retrieving losses for " + team + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return False
+
+
+def get_team_win_percentage(team):
+    """
+    Get the team's win percentage
+
+    :param team:
+    :return:
+    """
+
+    try:
+        log_message("database", "info", "----------------------------")
+        log_message("database", "info", "Getting win percentage for " + team)
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT win_percentage FROM teams WHERE (name) IN (('" + team + "'))")
+        win_percentage = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info",
+                    "Successfully retrieved win percentage for " + team)
+        log_message("database", "info", "Database disconnected")
+        return win_percentage
+
+    except Exception as e:
+        log_message("database", "error", "There was an issue retrieving win percentage for " + team + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return False
+
+
+def get_season_wins(season, team):
+    """
+    Get the team's wins for a season
+
+    :param season:
+    :param team:
+    :return:
+    """
+
+    try:
+        log_message("database", "info", "----------------------------")
+        log_message("database", "info", "Getting number of wins for " + team + " in season " + str(season))
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT wins FROM season_stats WHERE (name, season) IN (('" + team + "', " + str(season) + ")")
+        wins = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info",
+                    "Successfully retrieved wins for " + team + " in season " + str(season))
+        log_message("database", "info", "Database disconnected")
+        return wins
+
+    except Exception as e:
+        log_message("database", "error", "There was an issue retrieving wins for " + team + " in season " + str(season) + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return False
+
+
+def get_season_losses(season, team):
+    """
+    Get the team's losses for a season
+
+    :param season:
+    :param team:
+    :return:
+    """
+
+    try:
+        log_message("database", "info", "----------------------------")
+        log_message("database", "info", "Getting number of losses for " + team + " in season " + str(season))
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT losses FROM season_stats WHERE (name, season) IN (('" + team + "', " + str(season) + ")")
+        losses = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info",
+                    "Successfully retrieved losses for " + team + " in season " + str(season))
+        log_message("database", "info", "Database disconnected")
+        return losses
+
+    except Exception as e:
+        log_message("database", "error", "There was an issue retrieving losses for " + team + " in season " + str(season) + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return False
+
+
+def get_season_win_percentage(season, team):
+    """
+    Get the team's win percentage for a season
+
+    :param season:
+    :param team:
+    :return:
+    """
+
+    try:
+        log_message("database", "info", "----------------------------")
+        log_message("database", "info", "Getting win percentage for " + team + " in season " + str(season))
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT win_percentage FROM season_stats WHERE (name, season) IN (('" + team + "', " + str(season) + ")")
+        win_percentage = cursor.fetchone()[0]
+
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info",
+                    "Successfully retrieved win percentage for " + team + " in season " + str(season))
+        log_message("database", "info", "Database disconnected")
+        return win_percentage
+
+    except Exception as e:
+        log_message("database", "error", "There was an issue retrieving  win percentage for " + team + " in season " + str(season) + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return False

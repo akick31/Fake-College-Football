@@ -37,7 +37,7 @@ def log_message(log_target, level, log_content):
     Log the requested method
 
     """
-    print(level + "-" + log_target + ": " + log_content)
+    # print(level + "-" + log_target + ": " + log_content)
 
     # if level == "debug":
     #     logger = create_logger(log_target)

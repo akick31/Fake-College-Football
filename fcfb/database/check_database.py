@@ -130,3 +130,34 @@ def check_game_done(game_id):
         log_message("database", "error", "There was an issue checking the game " + game_id + " to see if it is marked as done. " + repr(e))
         log_message("database", "info", "Database disconnected")
         return None
+
+
+def check_if_team_exists(team):
+    """
+    Check if the team exists in the database already
+
+    :param team:
+    :return:
+    """
+
+    log_message("database", "info", "----------------------------")
+    log_message("database", "info", "Checking if the team " + team + " already exists in games")
+
+    try:
+        from database.database_administration import connect_to_database
+        database = connect_to_database()
+        cursor = database.cursor()
+        cursor.execute("SELECT COUNT(1) FROM teams WHERE (name) IN (('" + str(team) + "'))")
+        game_exists = cursor.fetchone()[0]
+        if game_exists >= 1:
+            log_message("database", "info", "The team " + team + " exists already in teams.")
+            log_message("database", "info", "Database disconnected")
+            return True
+        else:
+            log_message("database", "info", "The team " + team + " does not exist in teams!")
+            log_message("database", "info", "Database disconnected")
+            return False
+    except Exception as e:
+        log_message("database", "error", "There was an issue checking if the team " + team + " already exists or not in teams. " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return None
