@@ -51,6 +51,6 @@ def log_message(log_target, level, log_content):
     #     logger = create_logger(log_target)
     #     logger.warning(log_content)
     #
-    # if level == "error":
-    #     logger = create_logger(log_target)
-    #     logger.error(log_content)
+    if level == "error":
+        logger = create_logger(log_target)
+        logger.error(log_content)

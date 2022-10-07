@@ -3,6 +3,7 @@ import os
 
 # getting the name of the directory
 # where the this file is present.
+
 current = os.path.dirname(os.path.realpath(__file__))
 
 # Getting the parent directory name
@@ -17,6 +18,7 @@ from discord_functions.discord_comments import *
 from reddit_functions.reddit_games import *
 from scorebug.scorebug_drawer import *
 from database.update_database import *
+from database.remove_from_database import *
 
 
 async def maintain_scoreboard(r, client):
