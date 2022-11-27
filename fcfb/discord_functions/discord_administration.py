@@ -14,10 +14,10 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from discord.ext import tasks
+from fcfb.discord.ext import tasks
 
-from maintain_functions.maintain_scoreboard import *
-from reddit_functions.reddit_games import *
+from fcfb.maintain_functions.maintain_scoreboard import *
+from fcfb.reddit_functions.reddit_games import *
 
 
 def cyclone_bot(r):

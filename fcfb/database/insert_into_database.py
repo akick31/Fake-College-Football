@@ -13,7 +13,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from logs.logs import *
+from fcfb.logs.logs import *
 
 
 def insert_into_ongoing_games(game_id, game_link, game_info):
@@ -29,7 +29,7 @@ def insert_into_ongoing_games(game_id, game_link, game_info):
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Inserting game info for " + game_id + " into the ongoing games database")
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -88,7 +88,7 @@ def insert_into_games(game_id, game_link, game_info, season, is_final, game_thre
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Inserting game info for " + game_id + " into the games database")
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None
@@ -165,7 +165,7 @@ def insert_play(game_id, home_team, away_team, play_number, home_score, away_sco
     try:
         log_message("database", "info", "----------------------------")
         log_message("database", "info", "Inserting play info for " + game_id + ". Play number " + str(play_number))
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         if database is None:
             return None

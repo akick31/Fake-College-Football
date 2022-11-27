@@ -13,7 +13,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from database.database_administration import *
+from fcfb.database.database_administration import *
 
 
 def remove_game_from_ongoing_games(game_id):
@@ -26,7 +26,7 @@ def remove_game_from_ongoing_games(game_id):
 
     log_message("database", "info", "Trying to remove game " + game_id + " from the ongoing games database")
     try:
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("DELETE FROM ongoing_games WHERE (game_id) IN (('" + game_id + "'))")

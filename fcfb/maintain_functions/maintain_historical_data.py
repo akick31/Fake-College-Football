@@ -1,6 +1,6 @@
 from datetime import datetime
 from psaw import PushshiftAPI
-from reddit_functions.reddit_games import *
+from fcfb.reddit_functions.reddit_games import *
 
 
 def historical_bot(r):

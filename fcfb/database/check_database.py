@@ -13,7 +13,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from logs.logs import *
+from fcfb.logs.logs import *
 
 
 def check_if_game_exists_in_games(game_id):
@@ -28,7 +28,7 @@ def check_if_game_exists_in_games(game_id):
     log_message("database", "info", "Checking if the game " + game_id + " already exists in games")
 
     try:
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("SELECT COUNT(1) FROM games WHERE (game_id) IN (('" + str(game_id) + "'))")
@@ -59,7 +59,7 @@ def check_if_game_exists_in_ongoing_games(game_id):
     log_message("database", "info", "Checking if the game " + game_id + " already exists in the ongoing games db")
 
     try:
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("SELECT COUNT(1) FROM ongoing_games WHERE (game_id) IN (('" + str(game_id) + "'))")
@@ -90,7 +90,7 @@ def check_number_of_plays(game_id):
     log_message("database", "info", "Checking the number of plays in the following game: " + game_id)
 
     try:
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("SELECT COUNT(*) FROM game_plays WHERE (game_id) IN (('" + str(game_id) + "'))")
@@ -117,7 +117,7 @@ def check_game_done(game_id):
     log_message("database", "info", "Checking the game " + game_id + " is marked as done")
 
     try:
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("SELECT is_final FROM games WHERE (game_id) IN (('" + str(game_id) + "'))")
@@ -144,7 +144,7 @@ def check_if_team_exists(team):
     log_message("database", "info", "Checking if the team " + team + " already exists in games")
 
     try:
-        from database.database_administration import connect_to_database
+        from fcfb.database.database_administration import connect_to_database
         database = connect_to_database()
         cursor = database.cursor()
         cursor.execute("SELECT COUNT(1) FROM teams WHERE (name) IN (('" + str(team) + "'))")

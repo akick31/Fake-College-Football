@@ -13,7 +13,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from database.retrieve_from_database import *
+from fcfb.database.retrieve_from_database import *
 
 
 def get_vegas_odds(home_team, away_team, database):

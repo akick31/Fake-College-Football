@@ -8,12 +8,12 @@ import os
 
 # getting the name of the directory
 # where the this file is present.
-from database.check_database import check_if_game_exists_in_games
-from database.insert_into_database import insert_into_games
-from reddit_functions.parse_game_thread_info import get_game_info
-from reddit_functions.reddit_games import parse_game_id, insert_into_ongoing_games, \
+from fcfb.database.check_database import check_if_game_exists_in_games
+from fcfb.database.insert_into_database import insert_into_games
+from fcfb.reddit_functions.parse_game_thread_info import get_game_info
+from fcfb.reddit_functions.reddit_games import parse_game_id, insert_into_ongoing_games, \
     check_if_game_exists_in_ongoing_games
-from scorebug.scorebug_drawer import draw_ongoing_scorebug
+from fcfb.scorebug.scorebug_drawer import draw_ongoing_scorebug
 
 current = os.path.dirname(os.path.realpath(__file__))
 
@@ -25,8 +25,8 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from logs.logs import *
-from maintain_functions.maintain_game_information import maintain_game_information
+from fcfb.logs.logs import *
+from fcfb.maintain_functions.maintain_game_information import maintain_game_information
 
 
 async def database_bot(r):
@@ -38,7 +38,7 @@ async def database_bot(r):
     """
 
     while True:
-        from reddit_functions.reddit_games import add_games_from_wiki
+        from fcfb.reddit_functions.reddit_games import add_games_from_wiki
         await add_games_from_wiki(r, "FakeCollegeFootball")
         await maintain_game_information(r)
 

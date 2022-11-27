@@ -14,7 +14,7 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from database.retrieve_from_database import *
+from fcfb.database.retrieve_from_database import *
 
 
 def get_scorebug_colors(home_team, away_team):

@@ -16,12 +16,12 @@ sys.path.append(parent)
 from datetime import datetime
 import requests
 
-from database.check_database import *
-from database.insert_into_database import *
-from database.update_database import *
-from reddit_functions.parse_game_thread_info import *
-from scorebug.scorebug_drawer import *
-from stats.win_probability import *
+from fcfb.database.check_database import *
+from fcfb.database.insert_into_database import *
+from fcfb.database.update_database import *
+from fcfb.reddit_functions.parse_game_thread_info import *
+from fcfb.scorebug.scorebug_drawer import *
+from fcfb.stats.win_probability import *
 
 async def add_games_from_wiki(r, subreddit_name):
     """
@@ -46,7 +46,7 @@ async def add_games_from_wiki(r, subreddit_name):
 
     season = get_current_season()
 
-    from database.database_administration import add_game_to_databases
+    from fcfb.database.database_administration import add_game_to_databases
     if fbs_games is not None:
         for game in fbs_games:
             add_game_to_databases(r, game, season, "FBS")

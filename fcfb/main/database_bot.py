@@ -15,8 +15,8 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from reddit_functions.reddit_administration import login_reddit
-from database.database_administration import database_bot
+from fcfb.reddit_functions.reddit_administration import login_reddit
+from fcfb.database.database_administration import database_bot
 
 if __name__ == '__main__':
     r = login_reddit()

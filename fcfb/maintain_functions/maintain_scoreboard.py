@@ -14,11 +14,11 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from discord_functions.discord_comments import *
-from reddit_functions.reddit_games import *
-from scorebug.scorebug_drawer import *
-from database.update_database import *
-from database.remove_from_database import *
+from fcfb.discord_functions.discord_comments import *
+from fcfb.reddit_functions.reddit_games import *
+from fcfb.scorebug.scorebug_drawer import *
+from fcfb.database.update_database import *
+from fcfb.database.remove_from_database import *
 
 
 async def maintain_scoreboard(r, client):

@@ -15,7 +15,7 @@ sys.path.append(parent)
 
 from PIL import Image, ImageDraw, ImageFont
 
-from scorebug.scorebug_utils import *
+from fcfb.scorebug.scorebug_utils import *
 
 
 def convert_to_rgb(hex):

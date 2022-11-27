@@ -20,8 +20,8 @@ parent = os.path.dirname(current)
 # the sys.path.
 sys.path.append(parent)
 
-from reddit_functions.reddit_administration import *
-from discord_functions.discord_administration import *
+from fcfb.reddit_functions.reddit_administration import *
+from fcfb.discord_functions.discord_administration import *
 
 if __name__ == '__main__':
     r = login_reddit()
