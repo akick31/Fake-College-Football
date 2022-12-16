@@ -1,6 +1,8 @@
 import sys
 import os
 
+from fcfb.stats.game_stats import update_game_stats
+
 # getting the name of the directory
 # where the this file is present.
 current = os.path.dirname(os.path.realpath(__file__))
@@ -212,5 +214,6 @@ def iterate_through_plays(game_id, submission, subdivision):
                             defensive_submitter,
                             offensive_submitter, play, result, actual_result, yards, play_time, runoff_time,
                             win_probability)
+                update_game_stats(game_id, play_information)
 
             play_number = play_number + 1

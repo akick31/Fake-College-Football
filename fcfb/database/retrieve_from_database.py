@@ -692,3 +692,34 @@ def get_season_win_percentage(season, team):
         log_message("database", "error", "There was an issue retrieving  win percentage for " + team + " in season " + str(season) + ". " + repr(e))
         log_message("database", "info", "Database disconnected")
         return False
+
+
+def get_game_stats(game_id):
+    """
+    Fetch the game stats for the game
+
+    :param game_id:
+    :return:
+    """
+
+    log_message("database", "info", "----------------------------")
+    log_message("database", "info", "Retrieving the game stats for the game with the following game id: " + game_id)
+    try:
+        from fcfb.database.database_administration import connect_to_database
+        database = connect_to_database()
+        if database is None:
+            return None
+
+        cursor = database.cursor()
+        cursor.execute("SELECT * FROM games WHERE (game_id) IN (('" + game_id + "'))")
+        game_stats = cursor.fetchall()
+        database.commit()
+        cursor.close()
+        database.close()
+        log_message("database", "info", "Retrieved the game stats for the game with the following game id: " + game_id)
+        log_message("database", "info", "Database disconnected")
+        return game_stats
+    except Exception as e:
+        log_message("database", "error", "There was an error retrieving the game stats for the game with the following game id: " + game_id + ". " + repr(e))
+        log_message("database", "info", "Database disconnected")
+        return None

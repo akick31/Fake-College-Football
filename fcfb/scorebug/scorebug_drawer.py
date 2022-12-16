@@ -21,7 +21,14 @@ from fcfb.scorebug.scorebug_utils import *
 def convert_to_rgb(hex):
     """
     Convert hex to RGBA
-    
+
+    Parameters
+    ----------
+    hex
+
+    Returns
+    -------
+
     """
 
     rgb = tuple(int(hex[i:i + 2], 16) for i in (0, 2, 4))
